@@ -80,7 +80,7 @@ def train(sentences, features=100, mincount=200, workers=4, context=10,
         savestrip = "".join(save.split(".")[:-1])
         model.save(os.path.join(savestrip+".model"))
     logging.info("Training complete. Output contains %d words with %d features" %
-            (model.syn0.size, model.syn0[0].size))
+            (model.wv.syn0.size, model.wv.syn0[0].size))
     return model
 
 
@@ -126,7 +126,7 @@ def vec2pca(fname, output, content=None):
     sentences = multitokenize(". ".join(inputdata), processes=4)
     model = train(sentences)
 
-    keys = list(model.vocab.keys())
+    keys = list(model.wv.vocab.keys())
     df = pd.DataFrame(model[keys], index=keys)
 
 
